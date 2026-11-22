@@ -1,0 +1,19 @@
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan">Seal every posted invoice, and keep a receipt anyone can check</h2>
+    <p class="oe_mt32">Each posted customer invoice or credit note, and if you choose each vendor bill, is sealed in
+      RiskRouter's append-only evidence log. A receipt is attached to the invoice, and anyone can check it offline with
+      the published, open-source verifiers, without Odoo and without RiskRouter.</p>
+    <h3>What leaves Odoo</h3>
+    <p>The SHA-256 of a small salted record, and its kind. The record names the invoice by its number, its date and the
+      SHA-256 of its PDF, and the customer by an id such as <code>odoo-partner-42</code>. No amount, no name, no email
+      and no file is sent.</p>
+    <h3>What a receipt shows, and what it does not</h3>
+    <p>It shows that this record, naming this exact file, existed unchanged by the time the log sealed it. It does not
+      show that the invoice is correct, that it was delivered, or that it meets any rule.</p>
+    <h3>Set up</h3>
+    <p>Accounting, Settings, <em>Evidence seal (RiskRouter)</em>: paste an API key (a sandbox key needs no account, at
+      riskrouter.eu/integrate) and choose what to seal. Entries in the log are permanent. If the log cannot be reached,
+      the record is kept and sent on the next run; posting an invoice never waits for it.</p>
+  </div>
+</section>

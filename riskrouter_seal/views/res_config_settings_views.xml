@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_riskrouter" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.riskrouter</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='default_taxes_setting_container']" position="before">
+                <block title="Evidence seal (RiskRouter)" name="riskrouter_setting_container">
+                    <setting id="riskrouter_key" string="API key"
+                             help="A key from riskrouter.eu/integrate. A sandbox key needs no account. Entries in the log are permanent.">
+                        <field name="riskrouter_api_key" password="True"/>
+                        <div class="mt-2"><field name="riskrouter_api_base" placeholder="https://api.riskrouter.eu"/></div>
+                    </setting>
+                    <setting id="riskrouter_types" string="What to seal">
+                        <div><field name="riskrouter_seal_issued"/> <label for="riskrouter_seal_issued"/></div>
+                        <div><field name="riskrouter_seal_received"/> <label for="riskrouter_seal_received"/></div>
+                        <div class="mt-2"><label for="riskrouter_since"/> <field name="riskrouter_since" placeholder="YYYY-MM-DD"/></div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

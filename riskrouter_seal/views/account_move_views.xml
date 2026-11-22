@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_riskrouter" model="ir.ui.view">
+        <field name="name">account.move.form.riskrouter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='other_tab']" position="after">
+                <page id="riskrouter_tab" string="Evidence seal" name="riskrouter"
+                      invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')">
+                    <group>
+                        <group>
+                            <field name="riskrouter_state"/>
+                            <field name="riskrouter_message"/>
+                            <field name="riskrouter_receipt_id" invisible="not riskrouter_receipt_id"/>
+                        </group>
+                        <group invisible="not riskrouter_digest">
+                            <field name="riskrouter_digest"/>
+                            <field name="riskrouter_leaf_index" invisible="riskrouter_state != 'sealed'"/>
+                            <field name="riskrouter_sealed_at" invisible="riskrouter_state != 'sealed'"/>
+                        </group>
+                    </group>
+                    <button name="action_riskrouter_seal_now" type="object" string="Seal now" class="btn-secondary"
+                            invisible="state != 'posted' or riskrouter_state in ('sealed', 'refused')"/>
+                    <p class="text-muted mt-3">
+                        Only the salted SHA-256 of a small record describing this invoice is sent to the log.
+                        The invoice file, its amounts and the customer's details stay in Odoo. The receipt,
+                        attached here once the log answers, is checked offline with the published verifiers
+                        (riskrouter.eu/verify); it shows this record existed, unchanged, by the time the log
+                        sealed it, not that the invoice is correct or complies with any rule.
+                    </p>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_riskrouter" model="ir.ui.view">
+        <field name="name">account.move.list.riskrouter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='status_in_payment']" position="after">
+                <field name="riskrouter_state" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
